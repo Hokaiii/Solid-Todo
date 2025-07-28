@@ -1,21 +1,17 @@
 import { Component } from 'solid-js';
-import { Theme } from '../services/themeService';
+import { theme, themeActions } from '../store';
+import { THEMES } from '../constants';
 
-interface ThemeToggleProps {
-  theme: Theme;
-  onToggle: () => void;
-}
-
-const ThemeToggle: Component<ThemeToggleProps> = (props) => {
+const ThemeToggle: Component = () => {
   return (
     <button
-      onClick={props.onToggle}
+      onClick={themeActions.toggleTheme}
       class="theme-toggle"
-      title={`Passer au thème ${props.theme === 'light' ? 'sombre' : 'clair'}`}
-      aria-label={`Passer au thème ${props.theme === 'light' ? 'sombre' : 'clair'}`}
+      title={`Passer au thème ${theme() === THEMES.LIGHT ? 'sombre' : 'clair'}`}
+      aria-label={`Passer au thème ${theme() === THEMES.LIGHT ? 'sombre' : 'clair'}`}
     >
       <span class="theme-icon">
-        {props.theme === 'light' ? '🌙' : '☀️'}
+        {theme() === THEMES.LIGHT ? <i class="fas fa-moon"></i> : <i class="fas fa-sun"></i>}
       </span>
     </button>
   );
